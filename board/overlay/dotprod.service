@@ -1,0 +1,18 @@
+[Unit]
+Description=Program dotprod FPGA, apply device-tree overlay, and load driver
+After=local-fs.target pynq.service
+RequiresMountsFor=/opt/dotprod
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/dotprod
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# Replace interpreter with the board's PYNQ virtualenv Python if necessary.
+ExecStart=/usr/bin/python3 /opt/dotprod/load.py
+TimeoutStartSec=120
+# Intentionally no hot-unload action: stop applications and reboot for a clean
+# FPGA/overlay reset. Never remove the live overlay with this driver attached.
+
+[Install]
+WantedBy=multi-user.target

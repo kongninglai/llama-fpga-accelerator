@@ -1,0 +1,36 @@
+/dts-v1/;
+/plugin/;
+
+/* Base: original PYNQ image.ub copied from this Ultra96 board.
+ * Bitstream is programmed separately BEFORE this overlay is applied.
+ */
+/ {
+    fragment@0 {
+        /* The stock PYNQ UIO device owns the same address and IRQ. */
+        target-path = "/fabric@A0000000";
+        __overlay__ {
+            status = "disabled";
+        };
+    };
+
+    fragment@1 {
+        target = <&amba>;
+        __overlay__ {
+            #address-cells = <2>;
+            #size-cells = <2>;
+
+            dotprod_accel_0: dotprod_accel@a0000000 {
+                compatible = "ece382m,dotprod";
+                reg = <0x0 0xa0000000 0x0 0x40000>;
+                interrupt-parent = <&gic>;
+                interrupts = <0 89 4>;
+                interrupt-names = "interrupt";
+                clocks = <&zynqmp_clk 71>;
+                clock-names = "ap_clk";
+                xlnx,s-axi-ctrl-addr-width = <18>;
+                xlnx,s-axi-ctrl-data-width = <32>;
+                status = "okay";
+            };
+        };
+    };
+};

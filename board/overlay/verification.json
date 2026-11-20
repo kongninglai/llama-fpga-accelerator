@@ -1,0 +1,13 @@
+{
+  "base_fit": "../image.ub (original PYNQ)",
+  "offline_overlay_merge": "PASS",
+  "register_and_irq_check": "PASS",
+  "clock_and_gic_fixups": "PASS",
+  "generic_uio_disabled": true,
+  "board_tested": false,
+  "sha256": {
+    "dotprod.bit": "04be4da3edadbf1c1c4986da229a1e0cb25f3f741ed318f63de7419161c9b2e2",
+    "dotprod.hwh": "93d6ec8c85e01174491bdcf97d23659c096d0560a95e0004c85ee9cf77421ba5",
+    "dotprod.dtbo": "47fb904c5b9a58fe0c8aef9ebcbf710d71a2f6f48e70f4756f9a48959a907dd7"
+  }
+}
