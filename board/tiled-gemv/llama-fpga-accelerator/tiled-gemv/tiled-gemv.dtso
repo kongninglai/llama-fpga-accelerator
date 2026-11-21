@@ -1,0 +1,29 @@
+/dts-v1/;
+/plugin/;
+
+/* Ultra96 PYNQ base tree: symbols amba and zynqmp_clk must exist.
+ * Program the matching bitstream before applying this overlay.
+ * Polling driver: no interrupt property or interrupt wiring is required.
+ */
+/ {
+    fragment@0 {
+        target = <&amba>;
+        __overlay__ {
+            #address-cells = <2>;
+            #size-cells = <2>;
+            tiled_gemv@a0000000 {
+                compatible = "ece382m,tiled-gemv-1.0";
+                reg = <0x0 0xa0000000 0x0 0x40000>;
+                clocks = <&zynqmp_clk 71>;
+                clock-names = "ap_clk";
+                status = "okay";
+            };
+        };
+    };
+    /* The PYNQ image used by this project has a generic UIO fabric node
+     * claiming the same address. Omit this fragment on trees without it. */
+    fragment@1 {
+        target-path = "/fabric@A0000000";
+        __overlay__ { status = "disabled"; };
+    };
+};
