@@ -4,7 +4,10 @@ set part xczu3eg-sbva484-1-e
 set period 6.667
 if {[info exists ::env(TG_PART)]} { set part $::env(TG_PART) }
 if {[info exists ::env(TG_PERIOD_NS)]} { set period $::env(TG_PERIOD_NS) }
-open_project -reset [file join $here build tiled_gemv]
+# Vitis HLS 2022.2 expects a project name, not an absolute path.
+file mkdir [file join $here build]
+cd [file join $here build]
+open_project -reset tiled_gemv
 set_top tiled_gemv_accel
 add_files [file join $here tiled_gemv.cpp]
 add_files -tb [file join $here tb_tiled_gemv.cpp]
